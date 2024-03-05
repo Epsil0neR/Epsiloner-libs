@@ -1,0 +1,89 @@
+﻿<Window x:Class="Sample_1.SampleApplyStyleForSelectedBehavior.SampleApplyStyleForSelectedBehavior"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sample_1.SampleApplyStyleForSelectedBehavior"
+        xmlns:behaviors="clr-namespace:Epsiloner.Wpf.Behaviors;assembly=Epsiloner.Wpf.Behaviors"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="SampleApplyStyleForSelectedBehavior" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
+                 Margin="5"
+                 TextWrapping="Wrap"
+                 >
+            <Run Text="Selected item in left is list (ListBox) is set to property Selected in ViewModel." />
+            <LineBreak />
+            <Run Text="Mid list uses ApplyStyleForSelectedBehavior where Selected is used from ViewModel (data context)." />
+            <LineBreak />
+            <Run Text="Right list uses ApplyStyleForSelectedBehavior where Selected is used from another control. Basically it can be any Binding." />
+        </TextBlock>
+
+
+        <ListBox Grid.Column="0" Grid.Row="1"
+                 x:Name="ListBox"
+                 SelectedItem="{Binding Selected, Mode=TwoWay}" 
+                 ItemsSource="{Binding Items, Mode=OneWay}"/>
+
+        <ItemsControl Grid.Column="1" Grid.Row="1"
+                      ItemsSource="{Binding Items, Mode=OneWay}">
+            <b:Interaction.Behaviors>
+                <behaviors:ApplyStyleForSelectedBehavior BringSelectedIntoView="True" Selected="{Binding Selected}">
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Background" Value="LightCoral" />
+                        <Setter Property="Foreground" Value="DodgerBlue" />
+                    </Style>
+                </behaviors:ApplyStyleForSelectedBehavior>
+            </b:Interaction.Behaviors>
+        </ItemsControl>
+
+
+        <ItemsControl Grid.Column="2" Grid.Row="1"
+                      ItemsSource="{Binding Items, Mode=OneWay}">
+            <b:Interaction.Behaviors>
+                <behaviors:ApplyStyleForSelectedBehavior BringSelectedIntoView="True" Selected="{Binding ElementName=ListBox, Path=SelectedItem}">
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Background" Value="LightCoral" />
+                        <Setter Property="Foreground" Value="DodgerBlue" />
+                    </Style>
+                </behaviors:ApplyStyleForSelectedBehavior>
+            </b:Interaction.Behaviors>
+        </ItemsControl>
+
+
+
+        <ListBox Grid.Column="0" Grid.Row="2"
+                 x:Name="EmptyListBox"
+                 SelectedItem="{Binding SelectedEmpty, Mode=TwoWay}" 
+                 ItemsSource="{Binding EmptyList, Mode=OneWay}"/>
+        <ItemsControl Grid.Column="2" Grid.Row="2"
+                      ItemsSource="{Binding EmptyList, Mode=OneWay}">
+            <b:Interaction.Behaviors>
+                <behaviors:ApplyStyleForSelectedBehavior BringSelectedIntoView="True" Selected="{Binding SelectedEmpty}">
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Background" Value="LightCoral" />
+                        <Setter Property="Foreground" Value="DodgerBlue" />
+                    </Style>
+                </behaviors:ApplyStyleForSelectedBehavior>
+            </b:Interaction.Behaviors>
+        </ItemsControl>
+        <Button Grid.Column="1" Grid.Row="2" 
+                Content="Add item" 
+                Click="ButtonBase_OnClick"/>
+    </Grid>
+</Window>

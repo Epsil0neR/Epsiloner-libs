@@ -1,0 +1,56 @@
+﻿<Window x:Class="Sample_1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:e="http://schemas.epsiloner.git/wpf/"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="BlueBold">
+            <Setter Property="Foreground" Value="Blue" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="Size16">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="RedBackground">
+            <Setter Property="Background" Value="Red" />
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="Green">
+            <Setter Property="Foreground" Value="Green" />
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical">
+
+        <TextBlock Text="Behaviors:" />
+        <Button Click="ApplyStyleForSelectedBehavior_OnClick" Content="ApplyStyleForSelectedBehavior" />
+        <Button Click="KeyboardNavigationBehavior_OnClick" Content="KeyboardNavigationBehavior" />
+        <Button Click="GridColumnsForItemsBehavior_OnClick" Content="SmartGridBehavior" />
+        <Separator />
+
+        <TextBlock Text="Extensions:" />
+        <Button Click="MultiStyleExtension_OnClick" Content="MultiStyleExtension" />
+        <Separator />
+        
+        <Button Click="XamlUtilsSave_OnClick" Content="XamlUtils.Save"/>
+        <Separator />
+            
+        <TextBlock TextWrapping="Wrap" MaxHeight="255" TextTrimming="CharacterEllipsis">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <Trigger Property="e:TextBlockService.IsTextTrimmed" Value="True">
+                            <Setter Property="Background" Value="Orange" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In egestas ante in bibendum viverra. Proin blandit placerat lacus, vitae cursus eros. Phasellus tristique sagittis ultricies. Donec hendrerit faucibus leo, eu suscipit nunc. Nam nec nisl eleifend ante sollicitudin aliquam. Nam pretium vehicula nulla, in auctor lacus porttitor id. Suspendisse potenti. Duis nec tellus a diam mattis tincidunt eu ut ante. Nulla accumsan arcu vel dui tincidunt ornare. Quisque pharetra augue justo, at auctor justo dictum sed.
+In lacus nisl, facilisis sed vestibulum nec, interdum ac purus. Phasellus nec nunc elit. Integer elementum fermentum ex ac scelerisque. Proin sit amet cursus enim, a efficitur lectus. Etiam turpis leo, suscipit id odio non, lacinia dapibus orci. Sed luctus, arcu nec pharetra fermentum, magna eros dignissim neque, sit amet interdum ligula ex sed metus. Integer vestibulum nisl mi, eget tempor velit imperdiet in. In et dui venenatis, auctor felis vitae, mattis mi. Morbi auctor euismod tellus eget congue. Suspendisse potenti.
+Sed ipsum elit, ultrices at facilisis et, aliquam quis urna. Quisque aliquet, lorem non lobortis cursus, ante leo rutrum nisl, at pulvinar turpis erat vitae nulla. In elementum auctor sapien sed cursus. Fusce gravida viverra enim quis elementum. Curabitur porta risus quis ultrices efficitur. Pellentesque condimentum vulputate efficitur. Proin in lacus eu est elementum mollis. Suspendisse hendrerit dui sit amet porttitor aliquam. Donec tincidunt, enim nec congue faucibus, lorem orci facilisis erat, eget tempus ex eros a odio. Pellentesque pellentesque accumsan purus nec molestie. Nam ut dui vitae lectus placerat commodo quis vel dui. Etiam mollis purus volutpat, imperdiet elit a, ultricies dolor. Ut at lacus purus. Nunc nec risus et sapien fringilla pretium. Donec interdum dignissim dictum.
+Nullam odio velit, malesuada ut nulla in, placerat sodales lorem. Donec nec dui pulvinar, lobortis elit ac, sagittis metus. Ut congue augue nec est vestibulum rhoncus. Fusce id ipsum in felis egestas commodo. Praesent elit urna, feugiat vitae enim vel, hendrerit efficitur velit. Sed non auctor magna, sed pellentesque ante. Integer nec suscipit ante. Quisque ac odio purus. Etiam id lorem elementum, varius tortor nec, scelerisque libero. Fusce ac faucibus dolor, in sollicitudin diam.
+        </TextBlock>
+    </StackPanel>
+
+</Window>

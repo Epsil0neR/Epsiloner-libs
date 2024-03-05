@@ -1,0 +1,49 @@
+﻿<Window x:Class="Sample_1.SampleKeyboardNavigationBehavior.SampleKeyboardNavigationBehavior"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sample_1.SampleKeyboardNavigationBehavior"
+        xmlns:behaviors="clr-namespace:Epsiloner.Wpf.Behaviors;assembly=Epsiloner.Wpf.Behaviors"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="SampleKeyboardNavigationBehavior" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
+        <CheckBox x:Name="chkIsEnabled" 
+                  IsChecked="True"
+                  Content="IsEnabled" />
+        <TextBlock>
+            <Run Text="Selected item: " />
+            <Run Text="{Binding Selected}" FontWeight="SemiBold" />
+        </TextBlock>
+        <Separator />
+        
+        <TextBlock>
+            <Run>IsEnabled checkbox indicates if navigation is enabled.</Run>
+            <LineBreak />
+            <Run>Default keys are used:</Run>
+            <LineBreak />
+            <Run Text="  ENTER - activate selected item" />
+            <LineBreak />
+            <Run Text="  UP - select previous item (or last if currently selected is first)" />
+            <LineBreak />
+            <Run Text="  DOWN - select next item (or first if currently selected is last)" />
+            <LineBreak />
+            <Run>NOTE #1: Navigation works only if control contains focus.</Run>
+            <LineBreak />
+            <Run>NOTE #2: If you will need to have binding in behavior to some control, then declare them before closing tag of that control.</Run>
+        </TextBlock>
+    </StackPanel>
+
+    <b:Interaction.Behaviors>
+        <behaviors:KeyboardNavigationBehavior 
+            Selected="{Binding Selected, Mode=TwoWay}"
+            Items="{Binding Items, Mode=OneWay}"
+            IsEnabled="{Binding IsChecked, ElementName=chkIsEnabled, Mode=OneWay}"
+            ActivateSelectedCommand="{Binding ActivateCommand, Mode=OneWay}"
+            />
+    </b:Interaction.Behaviors>
+</Window>
