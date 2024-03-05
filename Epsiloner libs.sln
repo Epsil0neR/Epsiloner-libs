@@ -9,16 +9,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{DEC8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Core", "src\Epsiloner.Core\Epsiloner.Core.csproj", "{251526E1-259A-43E9-AF08-355FC78263A0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.Core", "src\Epsiloner.Wpf.Core\Epsiloner.Wpf.Core.csproj", "{7929CA2B-F408-44E7-9190-36E937882CA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.Behaviors", "src\Epsiloner.Wpf.Behaviors\Epsiloner.Wpf.Behaviors.csproj", "{696A3119-F083-479F-A5CE-604876F6FD8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugWithRefs|Any CPU = DebugWithRefs|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{251526E1-259A-43E9-AF08-355FC78263A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{251526E1-259A-43E9-AF08-355FC78263A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251526E1-259A-43E9-AF08-355FC78263A0}.DebugWithRefs|Any CPU.ActiveCfg = Debug|Any CPU
+		{251526E1-259A-43E9-AF08-355FC78263A0}.DebugWithRefs|Any CPU.Build.0 = Debug|Any CPU
 		{251526E1-259A-43E9-AF08-355FC78263A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{251526E1-259A-43E9-AF08-355FC78263A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7929CA2B-F408-44E7-9190-36E937882CA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7929CA2B-F408-44E7-9190-36E937882CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7929CA2B-F408-44E7-9190-36E937882CA3}.DebugWithRefs|Any CPU.ActiveCfg = DebugWithRefs|Any CPU
+		{7929CA2B-F408-44E7-9190-36E937882CA3}.DebugWithRefs|Any CPU.Build.0 = DebugWithRefs|Any CPU
+		{7929CA2B-F408-44E7-9190-36E937882CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7929CA2B-F408-44E7-9190-36E937882CA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{696A3119-F083-479F-A5CE-604876F6FD8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{696A3119-F083-479F-A5CE-604876F6FD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{696A3119-F083-479F-A5CE-604876F6FD8E}.DebugWithRefs|Any CPU.ActiveCfg = Debug|Any CPU
+		{696A3119-F083-479F-A5CE-604876F6FD8E}.DebugWithRefs|Any CPU.Build.0 = Debug|Any CPU
+		{696A3119-F083-479F-A5CE-604876F6FD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{696A3119-F083-479F-A5CE-604876F6FD8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

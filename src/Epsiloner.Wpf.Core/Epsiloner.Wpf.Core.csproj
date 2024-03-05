@@ -1,0 +1,92 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-windows</TargetFrameworks>
+		<UseWpf>True</UseWpf>
+		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
+		<Company>https://github.com/Epsil0neR/Epsiloner.Wpf.Core</Company>
+		<Copyright>Copyright © Epsil0neR 2018</Copyright>
+
+		<AssemblyName>Epsiloner.Wpf.Core</AssemblyName>
+		<RootNamespace>Epsiloner.Wpf</RootNamespace>
+		<AssemblyTitle>$(AssemblyName)</AssemblyTitle>
+		<Description>WPF related things</Description>
+
+		<Version>1.3.0</Version>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<FileVersion>$(Version)</FileVersion>
+
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>../../Epsiloner libraries.pfx</AssemblyOriginatorKeyFile>
+		<Configurations>Debug;Release;DebugWithRefs</Configurations>
+	</PropertyGroup>
+
+	<!-- NuGet properties -->
+	<PropertyGroup>
+		<PackageId>$(AssemblyName)</PackageId>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner.Wpf.Core/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner.Wpf.Core</PackageProjectUrl>
+		<PackageReleaseNotes>
+			v1.3.0:
+			Support only .NET 7.
+			v1.2.0:
+			Added gestures and KeyBinding functionality from Epsiloner.Wpf.Keyboard that now is obsolete.
+			v1.1.0:
+			Removed all Behaviors related code as it is now a separate NuGet package: https://github.com/Epsil0neR/Epsiloner.Wpf.Behaviors
+			Added NET5.0-windows support.
+			Updated Epsiloner.Core refence to latest 1.0.22
+			v1.0.15 + v1.0.16:
+			ObservableCollection`T - fixed small bug in CollectionChanged event raising.
+			v1.0.14:
+			ObservableCollection`T - improved method CollectionChanged event raising.
+			v1.0.13:
+			Introduced xmlns namespace and default prefix.
+			TextBlockService - service for TextBlock control that provides few attached dependency properties.
+			v1.0.12:
+			GridColumnsForItemsBehavior renamed to SmartGridBehavior.
+			SmartGridBehavior added caching, fixed bugs with dispatcher.
+			v1.0.11:
+			GridColumnsForItemsBehavior that lets use Grid as table with rows by specifying maximum columns per row, otherwise all items will be in same row.
+			v1.0.10:
+			Removed DependsOnAttribute to use System.Windows.Markup.DependsOnAttribute instead.
+			v1.0.9
+			Added ViewModelUtil that lets inject ViewModel logic anywhere.
+			ViewModel is now uses ViewModelUtil inside to still have unified logic for setting properties.
+			v1.0.8
+			Added DependsOnAttribute that lets add property dependance when another property changes (works only with ViewModel.Set method).
+			v1.0.7
+			Added AutoFocusBehavior.
+			v1.0.6
+			Fixed documentation file.
+			v1.0.5
+			Fixing bug with too early selection of added item.
+			Renamed collections - now they are without 'Wrap' postfix.
+			Added support to .NET v4.5, v4.6
+			Added MultiStyleExtension that allows to merge multiple styles into 1.
+			Added KeyboardNavigationBehavior that allows to navigate in any list of items with keyboard.
+			Added ApplyStyleForSelectedBehavior that allows to apply style for selected item.
+		</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageTags>Epsiloner Wpf</PackageTags>
+		<PackageVersion>$(Version)</PackageVersion>
+		<PackageDescription>$(Description)</PackageDescription>
+		<GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<!-- Documentation -->
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<!-- Exclude misc files -->
+	<ItemGroup>
+		<None Remove="*.pfx" />
+		<None Remove="*.nupkg" />
+		<None Remove="*.cmd" />
+		<None Remove="packages.config" />
+	</ItemGroup>
+
+	<!-- NuGet dependancies -->
+	<ItemGroup>
+		<PackageReference Include="Epsiloner.Core" Version="1.0.22" />
+	</ItemGroup>
+</Project>

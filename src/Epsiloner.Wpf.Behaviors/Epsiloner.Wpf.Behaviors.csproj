@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<UseWpf>True</UseWpf>
+		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
+		<Company>https://github.com/Epsil0neR/Epsiloner.Wpf.Behaviors</Company>
+		<Copyright>Copyright © Epsil0neR 2018</Copyright>
+
+		<AssemblyName>Epsiloner.Wpf.Behaviors</AssemblyName>
+		<RootNamespace>Epsiloner.Wpf.Behaviors</RootNamespace>
+		<AssemblyTitle>$(AssemblyName)</AssemblyTitle>
+		<Description>WPF Behavior related things</Description>
+
+		<Version>1.3.0</Version>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<FileVersion>$(Version)</FileVersion>
+
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>../../Epsiloner libraries.pfx</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<!-- NuGet properties -->
+	<PropertyGroup>
+		<PackageId>$(AssemblyName)</PackageId>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner.Wpf.Core/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner.Wpf.Behaviors</PackageProjectUrl>
+		<PackageReleaseNotes>
+			v1.3.0:
+			Replaced NET5 support with NET7.
+			v1.1.0:
+			Addded gesture related behaviors: gesture to command, multi-gesture to command, gesture from key binding manager to command.
+			v1.0.0:
+			Moved all behavior related code from Epsiloner.Wpf.Core v1.0.16
+		</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageTags>Epsiloner Wpf Behaviors</PackageTags>
+		<PackageVersion>$(Version)</PackageVersion>
+		<PackageDescription>$(Description)</PackageDescription>
+		<GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<!-- Documentation -->
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<!-- Exclude misc files -->
+	<ItemGroup>
+		<None Remove="*.pfx" />
+		<None Remove="*.nupkg" />
+		<None Remove="*.cmd" />
+		<None Remove="packages.config" />
+	</ItemGroup>
+
+	<!-- NuGet dependancies -->
+	<ItemGroup>
+		<PackageReference Include="Epsiloner.Core" Version="1.0.22" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<ProjectReference Include="..\Epsiloner.Wpf.Core\Epsiloner.Wpf.Core.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<PackageReference Include="Epsiloner.Wpf.Core" Version="1.2.0" />
+	</ItemGroup>
+
+</Project>
