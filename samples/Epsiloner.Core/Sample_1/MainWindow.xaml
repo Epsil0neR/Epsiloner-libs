@@ -1,0 +1,43 @@
+﻿<Window x:Class="Sample_1.MainWindow"
+        x:Name="window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sample_1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel Orientation="Vertical">
+        <Button 
+            Content="Accumulate"
+            Click="btnAccumulate_OnClick"/>
+        <Button 
+            Content="Now"
+            Click="btnNow_OnClick"/>
+        <Border 
+            BorderThickness="0 1 0 0"
+            BorderBrush="#333333"
+            Margin="10" />
+        <Button 
+            Content="Run Queue"
+            Click="btnRunQueue_OnClick"/>
+
+        <Border 
+            BorderThickness="0 1 0 0"
+            BorderBrush="#333333"
+            Margin="10" />
+
+        <Button
+            Content="SingleTaskExecutor" 
+            Click="singleTaskExecutor_OnClick"/>
+
+        <ItemsControl
+            ItemsSource="{Binding ElementName=window, Path=Dates}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</Window>

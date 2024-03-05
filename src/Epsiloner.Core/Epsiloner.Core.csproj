@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461;net5.0</TargetFrameworks>
+    <Authors>Veniamin Lytkin @ Epsil0neR</Authors>
+    <Copyright>Copyright © Epsil0neR 2018</Copyright>
+    <Company>https://github.com/Epsil0neR/Epsiloner.Core</Company>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner.Core/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Epsil0neR/Epsiloner.Core</RepositoryUrl>
+    <PackageTags>Epsiloner</PackageTags>
+    <RepositoryType></RepositoryType>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Epsiloner libraries.pfx</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <RootNamespace>Epsiloner</RootNamespace>
+    <Version>1.0.22</Version>
+    <PackageReleaseNotes>
+      v1.0.22:
+      - Added .snupkg
+      v1.0.21:
+      - Improved RunQueue.
+      v1.0.20:
+      - Added RunQueue type that can run only 1 action at time and stack other calls into queue for re-run.
+      - EventCooldown types - fixing not working KeepLastStackTrace property and added property to retrieve last stack trace.
+      v1.0.19:
+      - ObservableCollection`T - added more monitors to work better with WPF.
+      v1.0.18:
+      - ObservableCollection`T - improved method ReplaceRangeSmart.
+      v1.0.17:
+      - EventCooldown - Added MaxAccumulationTimeSpan to constructor that guaranties that event will be invoked since first accumulation.
+      v1.0.14:
+      - ObservableCollection`T - improved method ReplaceRangeSmart.
+      v1.0.13:
+      - ObservableCollection`T - added method ReplaceRangeSmart that raises events for all types of changes.
+      - ObservableCollection`T - improved AddRange method to raise more detailed event.
+      v1.0.12:
+      - Added ObservableCollection`T.ToListSafe method that tries safely get items.
+    </PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
