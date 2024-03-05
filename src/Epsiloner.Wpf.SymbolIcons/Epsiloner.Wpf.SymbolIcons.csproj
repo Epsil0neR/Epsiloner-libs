@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+    <Authors>Veniamin Lytkin @ Epsil0neR</Authors>
+    <Company>https://github.com/Epsil0neR/Epsiloner.Wpf.Core</Company>
+    <Copyright>Copyright © Epsil0neR 2020</Copyright>
+
+    <AssemblyName>Epsiloner.Wpf.SymbolIcons</AssemblyName>
+    <RootNamespace>Epsiloner.Wpf</RootNamespace>
+    <AssemblyTitle>$(AssemblyName)</AssemblyTitle>
+    <Description>
+      Font Symbols control for WPF.
+      Supported fonts:
+      - Segoe UI Symbols v6.23
+      - Material Design Icons v1.017 (Free for desktop version)
+    </Description>
+
+    <Version>1.0.1</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Epsiloner libraries.pfx</AssemblyOriginatorKeyFile>
+
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <!-- NuGet properties -->
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner.Wpf.Core/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner.Wpf.SymbolIcons</PackageProjectUrl>
+    <PackageReleaseNotes>
+      v1.0.1:
+      Adds .NET5.0 support.
+      v1.0.0:
+      Initial version with:
+      - Segoe UI Symbols v6.23
+      - Material Design Icons v1.017 (Free for desktop version)
+    </PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Epsiloner Wpf Segoe SegoeUI symbols symbol material icons</PackageTags>
+    <PackageVersion>$(Version)</PackageVersion>
+    <PackageDescription>$(Description)</PackageDescription>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <!-- Documentation -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\**\*.*" />
+    <Resource Include="Resources\**\*.*" />
+  </ItemGroup>
+
+</Project>

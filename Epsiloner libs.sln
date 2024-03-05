@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.Core", "src\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.Behaviors", "src\Epsiloner.Wpf.Behaviors\Epsiloner.Wpf.Behaviors.csproj", "{696A3119-F083-479F-A5CE-604876F6FD8E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.SymbolIcons", "src\Epsiloner.Wpf.SymbolIcons\Epsiloner.Wpf.SymbolIcons.csproj", "{03ABF493-991D-4500-9E33-9FFEA1505441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,12 @@ Global
 		{696A3119-F083-479F-A5CE-604876F6FD8E}.DebugWithRefs|Any CPU.Build.0 = Debug|Any CPU
 		{696A3119-F083-479F-A5CE-604876F6FD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{696A3119-F083-479F-A5CE-604876F6FD8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03ABF493-991D-4500-9E33-9FFEA1505441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03ABF493-991D-4500-9E33-9FFEA1505441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03ABF493-991D-4500-9E33-9FFEA1505441}.DebugWithRefs|Any CPU.ActiveCfg = Debug|Any CPU
+		{03ABF493-991D-4500-9E33-9FFEA1505441}.DebugWithRefs|Any CPU.Build.0 = Debug|Any CPU
+		{03ABF493-991D-4500-9E33-9FFEA1505441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03ABF493-991D-4500-9E33-9FFEA1505441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
