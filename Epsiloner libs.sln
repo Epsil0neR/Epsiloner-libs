@@ -5,8 +5,6 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{60A4B043-BB5A-476C-A479-E06EBAF77756}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{DEC8D252-EF5C-4DEE-9D7B-48F3D6B080EB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Core", "src\Epsiloner.Core\Epsiloner.Core.csproj", "{251526E1-259A-43E9-AF08-355FC78263A0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.Core", "src\Epsiloner.Wpf.Core\Epsiloner.Wpf.Core.csproj", "{7929CA2B-F408-44E7-9190-36E937882CA3}"
@@ -14,6 +12,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.Behaviors", "src\Epsiloner.Wpf.Behaviors\Epsiloner.Wpf.Behaviors.csproj", "{696A3119-F083-479F-A5CE-604876F6FD8E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epsiloner.Wpf.SymbolIcons", "src\Epsiloner.Wpf.SymbolIcons\Epsiloner.Wpf.SymbolIcons.csproj", "{03ABF493-991D-4500-9E33-9FFEA1505441}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Epsil0ner.Core", "tests\Tests.Epsil0ner.Core\Tests.Epsil0ner.Core.csproj", "{ED9E857E-9B7E-4699-97BF-2F4405139E31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Epsiloner.Wpf.Core", "tests\Tests.Epsiloner.Wpf.Core\Tests.Epsiloner.Wpf.Core.csproj", "{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,9 +48,25 @@ Global
 		{03ABF493-991D-4500-9E33-9FFEA1505441}.DebugWithRefs|Any CPU.Build.0 = Debug|Any CPU
 		{03ABF493-991D-4500-9E33-9FFEA1505441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03ABF493-991D-4500-9E33-9FFEA1505441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED9E857E-9B7E-4699-97BF-2F4405139E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED9E857E-9B7E-4699-97BF-2F4405139E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED9E857E-9B7E-4699-97BF-2F4405139E31}.DebugWithRefs|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED9E857E-9B7E-4699-97BF-2F4405139E31}.DebugWithRefs|Any CPU.Build.0 = Debug|Any CPU
+		{ED9E857E-9B7E-4699-97BF-2F4405139E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED9E857E-9B7E-4699-97BF-2F4405139E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29}.DebugWithRefs|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29}.DebugWithRefs|Any CPU.Build.0 = Debug|Any CPU
+		{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED9E857E-9B7E-4699-97BF-2F4405139E31} = {60A4B043-BB5A-476C-A479-E06EBAF77756}
+		{ACE13C39-1984-49AF-9BE2-5E6DA4D0CC29} = {60A4B043-BB5A-476C-A479-E06EBAF77756}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D98E81D5-2222-45F2-9027-080019816879}

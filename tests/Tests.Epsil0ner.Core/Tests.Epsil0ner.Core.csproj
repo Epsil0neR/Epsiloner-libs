@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Epsiloner.Core\Epsiloner.Core.csproj" />
+    <ProjectReference Include="..\..\src\Epsiloner.Core\Epsiloner.Core.csproj" />
   </ItemGroup>
 
 </Project>
