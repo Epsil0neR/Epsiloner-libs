@@ -54,15 +54,17 @@
 
 	<!-- NuGet dependancies -->
 	<ItemGroup>
-		<PackageReference Include="Epsiloner.Core" Version="1.0.22" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-		<ProjectReference Include="..\Epsiloner.Wpf.Core\Epsiloner.Wpf.Core.csproj" />
-	</ItemGroup>
+	<!-- NuGet dependancies -->
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<PackageReference Include="Epsiloner.Core" Version="1.0.22" />
 		<PackageReference Include="Epsiloner.Wpf.Core" Version="1.2.0" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+	  <ProjectReference Include="..\Epsiloner.Core\Epsiloner.Core.csproj" />
+		<ProjectReference Include="..\Epsiloner.Wpf.Core\Epsiloner.Wpf.Core.csproj" />
 	</ItemGroup>
 
 </Project>

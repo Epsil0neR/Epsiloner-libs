@@ -86,7 +86,10 @@
 	</ItemGroup>
 
 	<!-- NuGet dependancies -->
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
 		<PackageReference Include="Epsiloner.Core" Version="1.0.22" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<ProjectReference Include="..\Epsiloner.Core\Epsiloner.Core.csproj" />
 	</ItemGroup>
 </Project>
