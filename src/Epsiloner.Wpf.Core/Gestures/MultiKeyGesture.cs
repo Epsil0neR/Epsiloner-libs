@@ -71,7 +71,7 @@ namespace Epsiloner.Wpf.Gestures
 
             _lastKeyPress = now;
 
-            //If pressed modifier and current gesture is not matching modier keys yet, then just swallow that key event.
+            //If pressed modifier and current gesture is not matching modifier keys yet, then just swallow that key event.
             if (!rv && g.PartiallyMatches(key, System.Windows.Input.Keyboard.Modifiers))
             {
                 e.Handled = true;

@@ -190,7 +190,7 @@ namespace Epsiloner.Wpf.Behaviors.Gestures
 
             var cmd = Command;
             var param = CommandParameter;
-
+            
             var matches = gesture.Matches(AssociatedObject, e);
             if (!matches && e.Handled && !_partially.ContainsKey(e))
             {
