@@ -23,8 +23,8 @@
 	<!-- NuGet properties -->
 	<PropertyGroup>
 		<PackageId>$(AssemblyName)</PackageId>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner.Wpf.Core/master/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner.Wpf.Core</PackageProjectUrl>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner-libs/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner-libs</PackageProjectUrl>
 		<PackageReleaseNotes>
 			v1.3.0:
 			Support only .NET 7.
