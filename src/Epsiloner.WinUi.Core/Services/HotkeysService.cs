@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Epsiloner.WinUi.Gestures;
 using Microsoft.Extensions.Logging;
 using Windows.System;
+using Epsiloner.WinUi.Configurations;
 
 namespace Epsiloner.WinUi.Services;
 
@@ -62,12 +63,15 @@ public class HotkeysService : IHotkeysService
 
     public HotkeysService(
         KeyboardHookService keyboardHookService, 
-        ILogger<HotkeysService> logger)
+        ILogger<HotkeysService> logger,
+        IHotkeyServiceConfiguration? configuration = null)
     {
         _logger = logger;
         KeyboardHookService = keyboardHookService;
         KeyboardHookService.KeyDown += OnKeyDown;
         KeyboardHookService.KeyUp += OnKeyUp;
+
+        configuration?.Configure(this);
     }
 
     /// <inheritdoc />

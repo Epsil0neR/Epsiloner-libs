@@ -91,24 +91,8 @@ public class Gesture
     public static bool IsValid(Gesture gesture) => gesture?.IsValid() ?? false;
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        var rv = string.Empty;
-        if (Modifiers != VirtualKeyModifiers.None)
-        {
-            var modifiers = Modifiers.GetFlags().Where(x => (VirtualKeyModifiers)x != VirtualKeyModifiers.None);
-            rv = string.Join("+", modifiers);
-        }
-
-        if (Modifiers != VirtualKeyModifiers.None && Key != VirtualKey.None)
-        {
-            rv += "+" + Key.ToString();
-        }
-        else if (Key != VirtualKey.None)
-        {
-            rv = Key.ToString();
-        }
-
-        return rv;
-    }
+    public override string ToString() =>
+        Modifiers == VirtualKeyModifiers.None
+            ? $"{Key}"
+            : $"{Modifiers}-{Key}";
 }

@@ -96,6 +96,8 @@ public sealed class MultiKeyGesture
             : MultiKeyGestureMatch.Matches;
     }
 
+    public override string ToString() => string.Join(";", Gestures.Select(x => x.ToString()));
+
     /// <summary>
     /// Processes key and returns key which should be checked in <see cref="Gesture"/>.
     /// </summary>
