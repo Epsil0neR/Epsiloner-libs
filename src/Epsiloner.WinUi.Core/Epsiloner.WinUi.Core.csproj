@@ -6,7 +6,7 @@
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
 		<Nullable>enable</Nullable>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
@@ -39,9 +39,11 @@
 		<Company>https://github.com/Epsil0neR/Epsiloner-libs</Company>
 		<Copyright>Copyright © Epsil0neR 2024</Copyright>
 		<PackageReleaseNotes>
-			v1.0.0:
-				- Low-level keyboard hook service to catch all keyboard inputs.
-				- Gesture and MultiGesture with Gestures service that can invoke actions based on registered gestures.
+		v1.0.1:
+		- Add IHotkeyServiceConfiguration interface to optionally configure IHotkeyService.
+		v1.0.0:
+		- Low-level keyboard hook service to catch all keyboard inputs.
+		- Gesture and MultiGesture with Gestures service that can invoke actions based on registered gestures.
 		</PackageReleaseNotes>
 		<PackageId>$(AssemblyName)</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
