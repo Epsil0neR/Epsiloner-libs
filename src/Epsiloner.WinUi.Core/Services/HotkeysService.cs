@@ -56,9 +56,7 @@ public class HotkeysService : IHotkeysService
 
     public KeyboardHookService KeyboardHookService { get; }
 
-    /// <summary>
-    /// Service can be paused during editing gestures.
-    /// </summary>
+    /// <inheritdoc />
     public bool IsPaused { get; set; }
 
     public HotkeysService(
@@ -110,6 +108,8 @@ public class HotkeysService : IHotkeysService
         var key = ParseKey(e.KeyCode);
         if (TryParseModifier(e.KeyCode, out var m))
             _modifiers.Add(m);
+
+        _logger.LogDebug("Key down code: {code} - {key}", e.KeyCode, key);
 
         if (IsPaused)
             return;

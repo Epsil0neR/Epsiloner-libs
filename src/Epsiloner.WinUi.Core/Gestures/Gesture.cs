@@ -10,6 +10,46 @@ namespace Epsiloner.WinUi.Gestures;
 /// </summary>
 public class Gesture
 {
+    public static bool IsValidKey(VirtualKey key)
+    {
+        return key switch
+        {
+            >= VirtualKey.F1 and <= VirtualKey.F24 => true,
+            >= VirtualKey.A and <= VirtualKey.Z => true,
+            >= VirtualKey.Number0 and <= VirtualKey.Number9 => true,
+            >= VirtualKey.NumberPad0 and <= VirtualKey.NumberPad9 => true,
+            >= VirtualKey.Left and <= VirtualKey.Down => true, // All 4 arrows
+
+            VirtualKey.Multiply => true, // "*"
+            VirtualKey.Add => true, // "+"
+            VirtualKey.Separator => true, // "|"
+            VirtualKey.Subtract => true, // "-"
+
+            VirtualKey.Decimal => true, // "."
+            VirtualKey.Divide => true, // "/"
+
+            VirtualKey.Space => true,
+            VirtualKey.Tab => true,
+            VirtualKey.CapitalLock => true,
+            VirtualKey.Back => true,
+            VirtualKey.Enter => true,
+
+            (VirtualKey)188 => true, // ",",
+            (VirtualKey)190 => true, // ".",
+            (VirtualKey)191 => true, // "/",
+            (VirtualKey)192 => true, // "`",
+            (VirtualKey)186 => true, // ";",
+            (VirtualKey)222 => true, // "'",
+            (VirtualKey)220 => true, // "\\",
+            (VirtualKey)219 => true, // "[",
+            (VirtualKey)221 => true, // "]",
+            (VirtualKey)189 => true, // "-",
+            (VirtualKey)187 => true, // "=",
+
+            _ => false
+        };
+    }
+
     /// <summary>Gets the key associated with this <see cref="Gesture" />.</summary>
     /// <returns>The key associated with the gesture.</returns>
     public VirtualKey Key { get; }
@@ -80,7 +120,7 @@ public class Gesture
     /// <returns></returns>
     public bool IsValid()
     {
-        return Key != VirtualKey.None;
+        return IsValidKey(Key);
     }
 
     /// <summary>
@@ -95,4 +135,6 @@ public class Gesture
         Modifiers == VirtualKeyModifiers.None
             ? $"{Key}"
             : $"{Modifiers}-{Key}";
+
+
 }

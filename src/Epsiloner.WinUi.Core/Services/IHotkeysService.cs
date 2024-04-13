@@ -6,6 +6,11 @@ namespace Epsiloner.WinUi.Services;
 public interface IHotkeysService
 {
     /// <summary>
+    /// Service can be paused during editing gestures.
+    /// </summary>
+    bool IsPaused { get; set; }
+
+    /// <summary>
     /// Restarts system hooks to retrieve keyboard input.
     /// </summary>
     void ReattachHooks();
