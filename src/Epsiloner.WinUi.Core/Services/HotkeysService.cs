@@ -49,9 +49,7 @@ public class HotkeysService : IHotkeysService
     /// </summary>
     private readonly HashSet<VirtualKeyModifiers> _modifiers = new();
 
-    /// <summary>
-    /// Event that notifies about changed gesture for named handler.
-    /// </summary>
+    /// <inheritdoc />
     public event EventHandler<HotkeysServiceGestureChangedEventArgs> GestureChanged;
 
     public KeyboardHookService KeyboardHookService { get; }
@@ -74,6 +72,12 @@ public class HotkeysService : IHotkeysService
 
     /// <inheritdoc />
     public void ReattachHooks() => KeyboardHookService.ReHook();
+
+    /// <inheritdoc />
+    public bool TryGetGesture(string name, out MultiKeyGesture? gesture)
+    {
+        return _gestures.TryGetValue(name, out gesture);
+    }
 
     /// <inheritdoc />
     public void Change(string name, Action? handler)

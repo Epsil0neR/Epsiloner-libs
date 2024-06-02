@@ -6,6 +6,11 @@ namespace Epsiloner.WinUi.Services;
 public interface IHotkeysService
 {
     /// <summary>
+    /// Event that notifies about changed gesture for named handler.
+    /// </summary>
+    event EventHandler<HotkeysServiceGestureChangedEventArgs> GestureChanged;
+
+    /// <summary>
     /// Service can be paused during editing gestures.
     /// </summary>
     bool IsPaused { get; set; }
@@ -14,6 +19,14 @@ public interface IHotkeysService
     /// Restarts system hooks to retrieve keyboard input.
     /// </summary>
     void ReattachHooks();
+
+    /// <summary>
+    /// Gets the gesture associated with the <paramref name="name"/>. 
+    /// </summary>
+    /// <param name="name">Handler name.</param>
+    /// <param name="gesture">Gesture associated with <paramref name="name"/>.</param>
+    /// <returns><see langword="true" /> if the contains a gesture for specified <paramref name="name"/>>; otherwise, <see langword="false" />.</returns>
+    bool TryGetGesture(string name, out MultiKeyGesture? gesture);
 
     /// <summary>
     /// Change handler for named handler with specified <paramref name="name"/>.
