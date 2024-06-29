@@ -46,7 +46,7 @@ public sealed class KeyboardHookService : IDisposable
         _hookId = SetHook(_hookHandler);
     }
 
-    private void RemoveHook()
+    public void RemoveHook()
     {
         user32dll.UnhookWindowsHookEx(_hookId);
     }

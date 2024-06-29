@@ -6,7 +6,7 @@
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
 		<Nullable>enable</Nullable>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
@@ -39,6 +39,8 @@
 		<Company>https://github.com/Epsil0neR/Epsiloner-libs</Company>
 		<Copyright>Copyright © Epsil0neR 2024</Copyright>
 		<PackageReleaseNotes>
+			v1.0.4:
+			- Make HotkeysService.StopHooks and KeyboardHookService.RemoveHooks methods public.
 			v1.0.3:
 			- Add IHotkeyService.GestureChanged event.
 			- Add IHotkeyService.TryGetGesture method.

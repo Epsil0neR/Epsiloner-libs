@@ -20,6 +20,12 @@ public interface IHotkeysService
     /// </summary>
     void ReattachHooks();
 
+
+    /// <summary>
+    /// Stops system hooks from retrieving keyboard input.
+    /// </summary>
+    void StopHooks();
+
     /// <summary>
     /// Gets the gesture associated with the <paramref name="name"/>. 
     /// </summary>

@@ -74,6 +74,9 @@ public class HotkeysService : IHotkeysService
     public void ReattachHooks() => KeyboardHookService.ReHook();
 
     /// <inheritdoc />
+    public void StopHooks() => KeyboardHookService.RemoveHook();
+
+    /// <inheritdoc />
     public bool TryGetGesture(string name, out MultiKeyGesture? gesture)
     {
         return _gestures.TryGetValue(name, out gesture);
