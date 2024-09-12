@@ -9,13 +9,7 @@ using Epsiloner.WinUi.Configurations;
 
 namespace Epsiloner.WinUi.Services;
 
-/// <summary>
-/// <para>
-/// Provides functionality to invoke named handlers by associating <see cref="MultiKeyGesture"/> with handler name. <br />
-/// Gestures are processed on <see cref="Services.KeyboardHookService.KeyUp"/> event.
-/// </para>
-/// CAUTION: This service gets low-level keyboard input from all processes.
-/// </summary>
+/// <inheritdoc cref="IHotkeysService"/>
 public class HotkeysService : IHotkeysService
 {
     /// <summary>
