@@ -15,12 +15,13 @@ namespace Epsiloner.WinUi.Gestures;
 //[ValueSerializer(typeof(MultiKeyGestureSerializer))]
 public sealed class MultiKeyGesture
 {
+    private DateTime _lastKeyPress = DateTime.MinValue;
+    private IEnumerator<Gesture>? _enumerator;
+
     /// <summary>
     /// Maximum delay between matching executing.
     /// </summary>
-    private readonly TimeSpan _maxDelay = TimeSpan.FromSeconds(1);
-    private DateTime _lastKeyPress = DateTime.MinValue;
-    private IEnumerator<Gesture>? _enumerator;
+    public TimeSpan MaxDelay { get; } = TimeSpan.FromSeconds(1);
 
     public IReadOnlyList<Gesture> Gestures { get; }
 
@@ -43,7 +44,7 @@ public sealed class MultiKeyGesture
     public MultiKeyGesture(IReadOnlyList<Gesture> gestures, TimeSpan maxDelay)
         : this(gestures)
     {
-        _maxDelay = maxDelay;
+        MaxDelay = maxDelay;
     }
 
     public void ResetMatchState()
@@ -58,7 +59,7 @@ public sealed class MultiKeyGesture
             return MultiKeyGestureMatch.NoMatch;
 
         var now = DateTime.UtcNow;
-        if (_enumerator == null || (now - _lastKeyPress) > _maxDelay)
+        if (_enumerator == null || (now - _lastKeyPress) > MaxDelay)
         {
             _enumerator?.Dispose();
             _enumerator = Gestures.GetEnumerator();

@@ -34,6 +34,17 @@ public class Gesture
             VirtualKey.Back => true,
             VirtualKey.Enter => true,
 
+            VirtualKey.Insert => true,
+            VirtualKey.Delete => true,
+            VirtualKey.Home => true,
+            VirtualKey.End => true,
+            VirtualKey.PageUp => true,
+            VirtualKey.PageDown => true,
+
+            VirtualKey.Snapshot => true,
+            VirtualKey.Scroll => true,
+            VirtualKey.Pause => true,
+
             (VirtualKey)188 => true, // ",",
             (VirtualKey)190 => true, // ".",
             (VirtualKey)191 => true, // "/",

@@ -71,6 +71,9 @@ public class HotkeysService : IHotkeysService
     public void StopHooks() => KeyboardHookService.RemoveHook();
 
     /// <inheritdoc />
+    public IReadOnlyList<MultiKeyGesture> Gestures => _gestures.Values.ToList();
+
+    /// <inheritdoc />
     public bool TryGetGesture(string name, out MultiKeyGesture? gesture)
     {
         return _gestures.TryGetValue(name, out gesture);
@@ -144,7 +147,12 @@ public class HotkeysService : IHotkeysService
         Task.Run(handler.Invoke);
     }
 
-    private static VirtualKey ParseKey(int keyCode)
+    /// <summary>
+    /// Parses to <see cref="VirtualKey"/> with replacing any modifier keys to <see cref="VirtualKey.None"/>.
+    /// </summary>
+    /// <param name="keyCode"></param>
+    /// <returns></returns>
+    public static VirtualKey ParseKey(int keyCode)
     {
         var key = (VirtualKey)keyCode;
         if (KeysToModifiers.ContainsKey(key))

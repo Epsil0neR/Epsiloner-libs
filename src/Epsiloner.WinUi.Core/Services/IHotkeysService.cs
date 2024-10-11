@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Epsiloner.WinUi.Gestures;
 
 namespace Epsiloner.WinUi.Services;
@@ -32,6 +33,11 @@ public interface IHotkeysService
     /// Stops system hooks from retrieving keyboard input.
     /// </summary>
     void StopHooks();
+
+    /// <summary>
+    /// All registered gestures.
+    /// </summary>
+    IReadOnlyList<MultiKeyGesture> Gestures { get; }
 
     /// <summary>
     /// Gets the gesture associated with the <paramref name="name"/>. 
