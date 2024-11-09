@@ -187,7 +187,7 @@ namespace Epsiloner.Collections
         /// <returns></returns>
         public IList<T> ToListSafe(int maxTries = 10)
         {
-            if (maxTries <= 0)
+            if (maxTries < 0)
                 throw new ArgumentOutOfRangeException(nameof(maxTries));
 
             List<T> rv = null;
@@ -204,7 +204,7 @@ namespace Epsiloner.Collections
                 {
                     // Throw exception only if tried maximum allowed times and still no result.
                     if (maxTries > 0 && tryIndex >= maxTries)
-                        throw e;
+                        throw new Exception("Reached max tries.", e);
 
                     // Suggestion from Nerijus to wait 1ms.
                     Thread.Sleep(1);
