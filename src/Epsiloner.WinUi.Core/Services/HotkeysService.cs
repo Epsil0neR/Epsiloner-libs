@@ -44,7 +44,7 @@ public class HotkeysService : IHotkeysService
     private readonly HashSet<VirtualKeyModifiers> _modifiers = new();
 
     /// <inheritdoc />
-    public event EventHandler<HotkeysServiceGestureChangedEventArgs> GestureChanged;
+    public event EventHandler<HotkeysServiceGestureChangedEventArgs>? GestureChanged;
 
     public KeyboardHookService KeyboardHookService { get; }
 
@@ -113,7 +113,7 @@ public class HotkeysService : IHotkeysService
         if (TryParseModifier(e.KeyCode, out var m))
             _modifiers.Add(m);
 
-        _logger.LogDebug("Key down code: {code} - {key}", e.KeyCode, key);
+        //_logger.LogDebug("Key down code: {code} - {key}", e.KeyCode, key);
 
         if (IsPaused)
             return;
