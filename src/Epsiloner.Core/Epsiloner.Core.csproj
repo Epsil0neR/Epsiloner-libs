@@ -3,10 +3,10 @@
 		<TargetFrameworks>net9</TargetFrameworks>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
 		<Copyright>Copyright © Epsil0neR 2018</Copyright>
-		<Company>https://github.com/Epsil0neR/Epsiloner.Core</Company>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner.Core/master/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner.Core</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/Epsil0neR/Epsiloner.Core</RepositoryUrl>
+		<Company>https://github.com/Epsil0neR/</Company>
+		<RepositoryUrl>https://github.com/Epsil0neR/Epsiloner-libs</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>Epsiloner</PackageTags>
 		<RepositoryType></RepositoryType>
 		<SignAssembly>true</SignAssembly>
