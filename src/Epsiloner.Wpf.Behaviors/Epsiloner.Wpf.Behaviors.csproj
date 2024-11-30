@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows</TargetFramework>
 		<UseWpf>True</UseWpf>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
-		<Company>https://github.com/Epsil0neR/Epsiloner.Wpf.Behaviors</Company>
+		<Company>https://github.com/Epsil0neR</Company>
 		<Copyright>Copyright © Epsil0neR 2018</Copyright>
 
 		<AssemblyName>Epsiloner.Wpf.Behaviors</AssemblyName>
@@ -11,7 +11,7 @@
 		<AssemblyTitle>$(AssemblyName)</AssemblyTitle>
 		<Description>WPF Behavior related things</Description>
 
-		<Version>1.3.0</Version>
+		<Version>9.0.0</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 
@@ -22,9 +22,12 @@
 	<!-- NuGet properties -->
 	<PropertyGroup>
 		<PackageId>$(AssemblyName)</PackageId>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/Epsil0neR/Epsiloner.Wpf.Core/master/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner.Wpf.Behaviors</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/Epsil0neR/Epsiloner-libs</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
 		<PackageReleaseNotes>
+			v9.0.0
+			- Migrate to .NET 9
 			v1.3.0:
 			Replaced NET5 support with NET7.
 			v1.1.0:
@@ -54,16 +57,14 @@
 
 	<!-- NuGet dependancies -->
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
 	</ItemGroup>
 
 	<!-- NuGet dependancies -->
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<PackageReference Include="Epsiloner.Core" Version="1.0.22" />
-		<PackageReference Include="Epsiloner.Wpf.Core" Version="1.2.0" />
+		<PackageReference Include="Epsiloner.Wpf.Core" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-	  <ProjectReference Include="..\Epsiloner.Core\Epsiloner.Core.csproj" />
 		<ProjectReference Include="..\Epsiloner.Wpf.Core\Epsiloner.Wpf.Core.csproj" />
 	</ItemGroup>
 
