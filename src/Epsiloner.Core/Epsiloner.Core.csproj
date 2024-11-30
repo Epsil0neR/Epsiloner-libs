@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net461;net5.0</TargetFrameworks>
+		<TargetFrameworks>net9</TargetFrameworks>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
 		<Copyright>Copyright © Epsil0neR 2018</Copyright>
 		<Company>https://github.com/Epsil0neR/Epsiloner.Core</Company>
@@ -13,8 +13,10 @@
 		<AssemblyOriginatorKeyFile>../../Epsiloner libraries.pfx</AssemblyOriginatorKeyFile>
 		<DelaySign>false</DelaySign>
 		<RootNamespace>Epsiloner</RootNamespace>
-		<Version>1.0.22</Version>
+		<Version>9.0.0</Version>
 		<PackageReleaseNotes>
+			v9.0.0:
+			- Migrate to .NET 9
 			v1.0.22:
 			- Added .snupkg
 			v1.0.21:
@@ -45,7 +47,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 
