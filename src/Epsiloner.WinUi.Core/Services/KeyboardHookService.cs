@@ -54,9 +54,9 @@ public sealed class KeyboardHookService : IDisposable
     private static IntPtr SetHook(user32dll.LowLevelKeyboardProc proc)
     {
         using var curProcess = Process.GetCurrentProcess();
-        using var curModule = curProcess.MainModule;
+        using var curModule = curProcess.MainModule!;
 
-        return user32dll.SetWindowsHookEx(WH_KEYBOARD_LL, proc, user32dll.GetModuleHandle(curModule.ModuleName), 0);
+        return user32dll.SetWindowsHookEx(WH_KEYBOARD_LL, proc, user32dll.GetModuleHandle(curModule.ModuleName!), 0);
     }
 
     private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
