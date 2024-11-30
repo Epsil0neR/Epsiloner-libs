@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Epsiloner.WinUi</RootNamespace>
-		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
 		<Nullable>enable</Nullable>
-		<Version>1.0.5</Version>
+		<Version>9.0.0</Version>
 
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
@@ -21,14 +21,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240428000" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
 	</ItemGroup>
 
 	<!-- NuGet dependancies -->
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<PackageReference Include="Epsiloner.Core" Version="1.0.22" />
+		<PackageReference Include="Epsiloner.Core" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
 		<ProjectReference Include="..\Epsiloner.Core\Epsiloner.Core.csproj" />
@@ -36,9 +36,14 @@
 
 	<PropertyGroup>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
-		<Company>https://github.com/Epsil0neR/Epsiloner-libs</Company>
+		<Company>https://github.com/Epsil0neR/</Company>
+		<RepositoryUrl>https://github.com/Epsil0neR/Epsiloner-libs</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Copyright>Copyright © Epsil0neR 2024</Copyright>
 		<PackageReleaseNotes>
+			v9.0.0:
+			- Migrate to .NET 9
 			v1.0.5:
 			- Add support to more keys be used in gesture.
 			- Make Gesture.MaxDelay publicly available.
@@ -57,8 +62,6 @@
 			- Gesture and MultiGesture with Gestures service that can invoke actions based on registered gestures.
 		</PackageReleaseNotes>
 		<PackageId>$(AssemblyName)</PackageId>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/Epsil0neR/Epsiloner-libs</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageTags>Epsiloner WinUi</PackageTags>
 		<PackageVersion>$(Version)</PackageVersion>
