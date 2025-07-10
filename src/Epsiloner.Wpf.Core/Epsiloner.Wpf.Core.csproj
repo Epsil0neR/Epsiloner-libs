@@ -73,6 +73,7 @@
 		<PackageVersion>$(Version)</PackageVersion>
 		<PackageDescription>$(Description)</PackageDescription>
 		<GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<!-- Documentation -->

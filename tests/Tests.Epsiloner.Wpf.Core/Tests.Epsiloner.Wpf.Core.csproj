@@ -5,6 +5,7 @@
     <UseWpf>True</UseWpf>
 
     <IsPackable>false</IsPackable>
+	  <LangVersion>Preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
