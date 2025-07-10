@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 namespace Epsiloner.Wpf.ViewModels
 {
+    [Obsolete("2025-04-27: Will be removed soon. Too complex to use, no benefits.")]
     public class ValueProperty<T>
     {
-        public static implicit operator ValueProperty<T>(T value) => new ValueProperty<T>(value);
+        public static implicit operator ValueProperty<T>(T value) => new(value);
         public static implicit operator T(ValueProperty<T> vp) => vp.Value;
 
-        private readonly List<Action<T>> _handlers = new List<Action<T>>();
+        private readonly List<Action<T>> _handlers = new();
         private T _value;
 
         public T Value

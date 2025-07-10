@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Epsiloner.Wpf.ViewModels;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
-using Epsiloner.Wpf.ViewModels;
 
 namespace Epsiloner.Wpf.Utils
 {
@@ -15,8 +16,12 @@ namespace Epsiloner.Wpf.Utils
     public class ViewModelUtil
     {
         #region "Static"
-        private static readonly Dictionary<Type, Dictionary<string, IEnumerable<string>>> Dependencies = new Dictionary<Type, Dictionary<string, IEnumerable<string>>>();
+        private static readonly ConcurrentDictionary<Type, Dictionary<string, HashSet<string>>?> Dependencies = new();
 
+        /// <summary>
+        /// Scans all properties in <paramref name="type"/> and caches for fast access in the future.
+        /// </summary>
+        /// <param name="type">Type to scan.</param>
         private static void ProcessType(Type type)
         {
             lock (Dependencies)
@@ -26,7 +31,7 @@ namespace Epsiloner.Wpf.Utils
 
                 var t = typeof(DependsOnAttribute);
                 var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                var dict = new Dictionary<string, List<string>>();
+                var dict = new Dictionary<string, HashSet<string>>();
 
                 foreach (var prop in props)
                 {
@@ -34,17 +39,18 @@ namespace Epsiloner.Wpf.Utils
                     foreach (var attribute in attributes)
                     {
                         var attr = (DependsOnAttribute)attribute;
-                        if (attr.Name == null)
+                        var name = attr.Name;
+                        if (name == null)
                             continue;
 
-                        var name = attr.Name;
-                        var list = dict.ContainsKey(name) ? dict[name] : (dict[name] = new List<string>());
+                        var list = dict.TryGetValue(name, out var value)
+                            ? value
+                            : (dict[name] = new()); // Create new entry in dictionary and return it.
                         list.Add(prop.Name);
                     }
                 }
 
-                var result = dict.ToDictionary(x => x.Key, x => x.Value.Distinct().ToList() as IEnumerable<string>);
-                Dependencies[type] = result.Any() ? result : null;
+                Dependencies[type] = dict.Any() ? dict : null;
             }
         }
         #endregion
@@ -75,34 +81,34 @@ namespace Epsiloner.Wpf.Utils
         /// <param name="propertyName">Property name</param>
         /// <param name="dependingPropertyNames">Depending properties</param>
         /// <returns></returns>
-        public bool Set<T>(ref T backingField, T newValue, [CallerMemberName] string propertyName = null, params string[] dependingPropertyNames)
+        public bool Set<T>(ref T backingField, T newValue, [CallerMemberName] string? propertyName = null, params string[]? dependingPropertyNames)
         {
-            var valueChanged = !EqualityComparer<T>.Default.Equals(backingField, newValue);
-            if (valueChanged)
+            // Check if same value
+            if (EqualityComparer<T>.Default.Equals(backingField, newValue)) 
+                return false;
+
+            backingField = newValue;
+            RaisePropertyChanged(propertyName!);
+
+            if (dependingPropertyNames != null)
+                foreach (var name in dependingPropertyNames)
+                    RaisePropertyChanged(name);
+
+            Dictionary<string, HashSet<string>>? dependencies;
+
+            lock (Dependencies)
+                dependencies = Dependencies.GetValueOrDefault(_ownerType);
+
+            if (propertyName != null && dependencies?.TryGetValue(propertyName, out var names) is true)
             {
-                backingField = newValue;
-                RaisePropertyChanged(propertyName);
-
                 if (dependingPropertyNames != null)
-                    foreach (var name in dependingPropertyNames)
-                        RaisePropertyChanged(name);
-
-                var t = _ownerType;
-                Dictionary<string, IEnumerable<string>> dependencies;
-
-                lock (Dependencies)
-                    dependencies = Dependencies.ContainsKey(t) ? Dependencies[t] : null;
-
-                if (propertyName != null && dependencies?.ContainsKey(propertyName) == true)
+                    names = names.Where(x => !dependingPropertyNames.Contains(x)).ToHashSet();
+                foreach (var name in names)
                 {
-                    var names = dependencies[propertyName];
-                    if (dependingPropertyNames != null)
-                        names = names.Where(x => !dependingPropertyNames.Contains(x)).ToList();
-                    foreach (var name in names)
-                        RaisePropertyChanged(name);
+                    RaisePropertyChanged(name);
                 }
             }
-            return valueChanged;
+            return true;
         }
 
         private void RaisePropertyChanged(string propertyName)
