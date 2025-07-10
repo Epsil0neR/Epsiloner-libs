@@ -2,111 +2,110 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Epsiloner
+namespace Epsiloner;
+
+/// <summary>
+/// Provides functionality to run action only once at time and in case the same action
+/// during execution is invoked multiple times - it will put invocations into queue and will run them in async.
+/// </summary>
+public class RunQueue : DisposableObject
 {
+    private readonly int _queueMax;
+
+    private readonly object _lock = new();
+    private readonly SemaphoreSlim _semaphore;
+    private readonly CancellationTokenSource _tokenSource;
+    private readonly CancellationToken _token;
+
     /// <summary>
-    /// Provides functionality to run action only once at time and in case the same action
-    /// during execution is invoked multiple times - it will put invocations into queue and will run them in async.
+    /// Action to invoke via <see cref="RunAsync"/>.
     /// </summary>
-    public class RunQueue : DisposableObject
+    public Action Action { get; }
+
+    /// <summary>
+    /// Constructor for <see cref="RunQueue"/>.
+    /// </summary>
+    /// <param name="action">Action that will be invoked via <see cref="RunAsync"/>. Weak reference.</param>
+    /// <param name="queueLimit">Queue limit.</param>
+    public RunQueue(Action action, int queueLimit = 1)
     {
-        private readonly int _queueMax;
+        if (queueLimit < 1)
+            throw new ArgumentException("Queue limit must be >= 1.");
 
-        private readonly object _lock = new object();
-        private readonly SemaphoreSlim _semaphore;
-        private readonly CancellationTokenSource _tokenSource;
-        private readonly CancellationToken _token;
+        _queueMax = queueLimit + 1;
+        _semaphore = new SemaphoreSlim(_queueMax, _queueMax);
+        _tokenSource = new CancellationTokenSource();
+        _token = _tokenSource.Token;
 
-        /// <summary>
-        /// Action to invoke via <see cref="RunAsync"/>.
-        /// </summary>
-        public Action Action { get; }
+        Action = action ?? throw new ArgumentNullException(nameof(action));
+    }
 
-        /// <summary>
-        /// Constructor for <see cref="RunQueue"/>.
-        /// </summary>
-        /// <param name="action">Action that will be invoked via <see cref="RunAsync"/>. Weak reference.</param>
-        /// <param name="queueLimit">Queue limit.</param>
-        public RunQueue(Action action, int queueLimit = 1)
+    protected override void DisposeManagedResources()
+    {
+        base.DisposeManagedResources();
+        _tokenSource.Cancel();
+        lock (_lock)
+            _semaphore.Dispose();
+    }
+
+    /// <summary>
+    /// Runs if queue is empty or adds to queue if queue is not full. Otherwise nothing happens.
+    /// </summary>
+    public async Task RunAsync()
+    {
+        if (IsDisposed)
+            return;
+
+        try
         {
-            if (queueLimit < 1)
-                throw new ArgumentException("Queue limit must be >= 1.");
-
-            _queueMax = queueLimit + 1;
-            _semaphore = new SemaphoreSlim(_queueMax, _queueMax);
-            _tokenSource = new CancellationTokenSource();
-            _token = _tokenSource.Token;
-
-            Action = action ?? throw new ArgumentNullException(nameof(action));
-        }
-
-        protected override void DisposeManagedResources()
-        {
-            base.DisposeManagedResources();
-            _tokenSource.Cancel();
             lock (_lock)
-                _semaphore.Dispose();
-        }
+            {
+                if (_semaphore.CurrentCount == 0) // Currently running + full queue.
+                    return;
 
-        /// <summary>
-        /// Runs if queue is empty or adds to queue if queue is not full. Otherwise nothing happens.
-        /// </summary>
-        public async Task RunAsync()
-        {
-            if (IsDisposed)
+                if (_semaphore.CurrentCount < _queueMax) // Currently running, queue is not full.
+                {
+                    _semaphore.Wait(_token); // Put 1 run into queue.
+                    return;
+                }
+
+                _semaphore.Wait(_token); // Start run without queue.
+            }
+
+            var runOnceMore = false;
+            if (_tokenSource.IsCancellationRequested)
                 return;
-
             try
             {
-                lock (_lock)
-                {
-                    if (_semaphore.CurrentCount == 0) // Currently running + full queue.
-                        return;
-
-                    if (_semaphore.CurrentCount < _queueMax) // Currently running, queue is not full.
-                    {
-                        _semaphore.Wait(_token); // Put 1 run into queue.
-                        return;
-                    }
-
-                    _semaphore.Wait(_token); // Start run without queue.
-                }
-
-                var runOnceMore = false;
-                if (_tokenSource.IsCancellationRequested)
-                    return;
-                try
-                {
-                    Action.Invoke();
-                }
-                finally
-                {
-                    if (!IsDisposed && !_tokenSource.IsCancellationRequested)
-                    {
-                        lock (_lock)
-                        {
-                            _semaphore.Release(); // Finish current run.
-                            if (_semaphore.CurrentCount != _queueMax) // Check if anything left in queue.
-                            {
-                                _semaphore.Release();
-                                runOnceMore = true;
-                            }
-                        }
-
-                        if (runOnceMore)
-                            await RunAsync();
-                    }
-                }
+                Action.Invoke();
             }
-            catch (OperationCanceledException) // Catch when RunQueue is disposed and someone waits in queue.
+            finally
             {
-                // ignore.
+                if (!IsDisposed && !_tokenSource.IsCancellationRequested)
+                {
+                    lock (_lock)
+                    {
+                        _semaphore.Release(); // Finish current run.
+                        if (_semaphore.CurrentCount != _queueMax) // Check if anything left in queue.
+                        {
+                            _semaphore.Release();
+                            runOnceMore = true;
+                        }
+                    }
+
+                    if (runOnceMore)
+                        await RunAsync();
+                }
             }
         }
-
-        /// <summary>
-        /// Synchronous version of <see cref="RunAsync"/>.
-        /// </summary>
-        public void Run() => RunAsync().Wait(_token);
+        catch (OperationCanceledException) // Catch when RunQueue is disposed and someone waits in queue.
+        {
+            // ignore.
+        }
     }
+
+    /// <summary>
+    /// Synchronous version of <see cref="RunAsync"/>.
+    /// </summary>
+    public void Run() => RunAsync().Wait(_token);
 }

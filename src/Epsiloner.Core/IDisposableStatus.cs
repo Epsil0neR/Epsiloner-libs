@@ -1,18 +1,17 @@
-﻿namespace Epsiloner
+﻿namespace Epsiloner;
+
+/// <summary>
+/// Implementing interfaces knows about disposed status.
+/// </summary>
+public interface IDisposableStatus
 {
     /// <summary>
-    /// Implementing interfaces knows about disposed status.
+    /// Current disposed status, set once after dispose
     /// </summary>
-    public interface IDisposableStatus
-    {
-        /// <summary>
-        /// Current disposed status, set once after dispose
-        /// </summary>
-        bool IsDisposed { get; }
+    bool IsDisposed { get; }
 
-        /// <summary>
-        /// If is currently disposing.
-        /// </summary>
-        bool IsDisposing { get; }
-    }
+    /// <summary>
+    /// If is currently disposing.
+    /// </summary>
+    bool IsDisposing { get; }
 }
