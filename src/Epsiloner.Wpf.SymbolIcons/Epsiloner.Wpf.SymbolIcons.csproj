@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-windows</TargetFrameworks>
+		<UseWPF>true</UseWPF>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
 		<Company>https://github.com/Epsil0neR/Epsiloner.Wpf.Core</Company>
 		<Copyright>Copyright © Epsil0neR 2020</Copyright>
@@ -19,11 +20,6 @@
 		<Version>1.0.1</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
-
-		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>Epsiloner libraries.pfx</AssemblyOriginatorKeyFile>
-
-		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
 	<!-- NuGet properties -->
