@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net9</TargetFrameworks>
+		<TargetFrameworks>net10</TargetFrameworks>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
 		<Copyright>Copyright © Epsil0neR 2018</Copyright>
 		<Company>https://github.com/Epsil0neR/</Company>
