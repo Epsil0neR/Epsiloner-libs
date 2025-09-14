@@ -17,7 +17,7 @@
 			- Material Design Icons v1.017 (Free for desktop version)
 		</Description>
 
-		<Version>1.0.1</Version>
+		<Version>10.0.0</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 	</PropertyGroup>
@@ -29,6 +29,8 @@
 		<RepositoryUrl>https://github.com/Epsil0neR/Epsiloner-libs</RepositoryUrl>
 		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
 		<PackageReleaseNotes>
+			v10.0.0:
+			- Migrate to .NET 10
 			v9.0.0
 			- Migrate to .NET 9
 			v1.0.1:
