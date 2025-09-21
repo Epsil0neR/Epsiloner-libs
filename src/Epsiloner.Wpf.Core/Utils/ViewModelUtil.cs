@@ -26,7 +26,7 @@ namespace Epsiloner.Wpf.Utils
         {
             lock (Dependencies)
             {
-                if (Dependencies.ContainsKey(type))
+                if (Dependencies.ContainsKey(type)) //TODO: [2025.09.14] What if type has generic params?
                     return;
 
                 var t = typeof(DependsOnAttribute);
