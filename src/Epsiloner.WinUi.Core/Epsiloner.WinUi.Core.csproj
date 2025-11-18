@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net10.0-windows10.0.19041.0</TargetFrameworks>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<UseWinUI>true</UseWinUI>
 		<RootNamespace>Epsiloner.WinUi</RootNamespace>
 		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
 		<Nullable>enable</Nullable>
-		<Version>9.0.0</Version>
+		<Version>10.0.0</Version>
 
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
@@ -38,6 +38,8 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Copyright>Copyright © Epsil0neR 2024</Copyright>
 		<PackageReleaseNotes>
+			v10.0.0:
+			- Migrate to .NET 10
 			v9.0.0:
 			- Migrate to .NET 9
 			v1.0.5:

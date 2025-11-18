@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net9</TargetFrameworks>
+		<TargetFrameworks>net10.0</TargetFrameworks>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
 		<Copyright>Copyright © Epsil0neR 2018</Copyright>
 		<Company>https://github.com/Epsil0neR/</Company>
@@ -11,8 +11,10 @@
 		<RepositoryType></RepositoryType>
 		<DelaySign>false</DelaySign>
 		<RootNamespace>Epsiloner</RootNamespace>
-		<Version>9.0.0</Version>
+		<Version>10.0.0</Version>
 		<PackageReleaseNotes>
+			v10.0.0:
+			- Migrate to .NET 10
 			v9.0.0:
 			- Migrate to .NET 9
 			v1.0.22:
