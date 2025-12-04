@@ -15,7 +15,6 @@ namespace Epsiloner.Tasks;
  - 5. outside - still waits for Task completion.
  - 6. task B completes
  - 7. outside - Task (B) completed.
-
  */
 
 /// <summary>
@@ -25,7 +24,7 @@ namespace Epsiloner.Tasks;
 public class SingleTaskExecutor<TResult> : IDisposable
 {
     private readonly Func<CancellationToken> _tokenResolver;
-    private CancellationTokenSource _tokenSource;
+    private CancellationTokenSource? _tokenSource;
     private TaskCompletionSource<TResult> _taskSource = new();
 
     /// <summary>
@@ -37,7 +36,7 @@ public class SingleTaskExecutor<TResult> : IDisposable
     /// TODO: Add documentation.
     /// </summary>
     /// <param name="tokenResolver">(Optional) Method to resolve token for each function executed via <see cref="Next"/>. If not specified will be used <see cref="CancellationToken.None"/>.</param>
-    public SingleTaskExecutor(Func<CancellationToken> tokenResolver = null)
+    public SingleTaskExecutor(Func<CancellationToken>? tokenResolver = null)
     {
         _tokenResolver = tokenResolver ?? (() => CancellationToken.None);
     }
@@ -55,14 +54,11 @@ public class SingleTaskExecutor<TResult> : IDisposable
     /// <returns>Returns <see cref="System.Threading.Tasks.Task"/> retrieved from <paramref name="func"/>.</returns>
     public Task Next(Func<CancellationToken, Task<TResult>> func)
     {
-        if (func == null)
-            throw new ArgumentNullException(nameof(func));
+        ArgumentNullException.ThrowIfNull(func);
 
-        if (_tokenSource != null)
-        {
-            _tokenSource.Cancel();
-            _tokenSource.Dispose();
-        }
+        // Cancel previous token source.
+        _tokenSource?.Cancel();
+        _tokenSource?.Dispose();
 
         var linkedSource = CancellationTokenSource.CreateLinkedTokenSource(_tokenResolver());
         var token = linkedSource.Token;
@@ -76,7 +72,7 @@ public class SingleTaskExecutor<TResult> : IDisposable
         if (_taskSource.Task.IsCanceled ||
             _taskSource.Task.IsCompleted ||
             _taskSource.Task.IsFaulted)
-            _taskSource = new TaskCompletionSource<TResult>();
+            _taskSource = new();
 
         task.ContinueWith(x =>
         {
@@ -88,7 +84,7 @@ public class SingleTaskExecutor<TResult> : IDisposable
             if (ReferenceEquals(linkedSource, _tokenSource))
                 _taskSource.TrySetException(x.Exception ?? new Exception());
         }, token, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Current).ConfigureAwait(false);
-        task.ContinueWith(x =>
+        task.ContinueWith(_ =>
         {
             if (ReferenceEquals(linkedSource, _tokenSource))
                 _taskSource.TrySetCanceled();

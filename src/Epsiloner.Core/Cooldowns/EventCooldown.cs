@@ -19,8 +19,8 @@ public class EventCooldown : DisposableObject
     private bool _timerIsDisposed;
     private bool _timerMaxElapsing;
 
-    private Timer _timer;
-    private Timer _timerMax;
+    private Timer? _timer;
+    private Timer? _timerMax;
 
     /// <summary>
     /// Creates event cooldown.  
@@ -50,7 +50,7 @@ public class EventCooldown : DisposableObject
     /// <summary>
     /// Provides stack trace of last <see cref="Accumulate"/> and <see cref="Now"/>.
     /// </summary>
-    public string LastStackTrace { get; private set; }
+    public string? LastStackTrace { get; private set; }
 
     /// <summary>
     /// For debugging purposes keeps last stack trace of execution. 
@@ -98,7 +98,7 @@ public class EventCooldown : DisposableObject
 
     /// <summary>
     /// Puts event in cooldown. 
-    /// In case no more events comes then OnElapsed will be called.
+    /// In case no more events comes than OnElapsed will be called.
     /// </summary>
     public void Accumulate()
     {
@@ -191,7 +191,7 @@ public class EventCooldown : DisposableObject
         return timer;
     }
 
-    private Timer NewMaxTimer()
+    private Timer? NewMaxTimer()
     {
         if (!_maxAccumulateAfter.HasValue)
             return null;
@@ -206,18 +206,18 @@ public class EventCooldown : DisposableObject
         return timer;
     }
 
-    private void OnMaxElapsed(object sender, ElapsedEventArgs e)
+    private void OnMaxElapsed(object? sender, ElapsedEventArgs e)
     {
         Cancel();
         InvokeAction();
     }
 
-    private void TimerDisposed(object sender, EventArgs e)
+    private void TimerDisposed(object? sender, EventArgs e)
     {
         _timerIsDisposed = true;
     }
 
-    private void OnElapsed(object sender, ElapsedEventArgs e)
+    private void OnElapsed(object? sender, ElapsedEventArgs e)
     {
         InvokeAction();
     }
@@ -238,21 +238,15 @@ public class EventCooldown : DisposableObject
     {
         lock (_padlock)
         {
-            if (_timer != null)
-            {
-                _timer.Close();
-                _timer.Elapsed -= OnElapsed;
-                _timer.Disposed -= TimerDisposed;
-                _timer = null;
-            }
+            _timer?.Close();
+            _timer?.Elapsed -= OnElapsed;
+            _timer?.Disposed -= TimerDisposed;
+            _timer = null;
 
-            if (_timerMax != null)
-            {
-                _timerMax.Close();
-                _timerMax.Elapsed -= OnMaxElapsed;
-                _timerMax.Disposed -= TimerDisposed;
-                _timerMax = null;
-            }
+            _timerMax?.Close();
+            _timerMax?.Elapsed -= OnMaxElapsed;
+            _timerMax?.Disposed -= TimerDisposed;
+            _timerMax = null;
         }
     }
 }

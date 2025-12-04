@@ -25,7 +25,7 @@ public class EventCooldownListOf<T> : IEventCooldown<T>
     /// </summary>
     /// <param name="action">action to invoke after <paramref name="accumulateAfter"/></param>
     /// <param name="accumulateAfter">invoke <paramref name="action"/> after <paramref name="accumulateAfter"/> of silence</param>
-    /// <param name="cleanAfterAccumulateInvoke">flag to clean list of items after <paramref name="action"/>. in case of true, values will be always accumulating in list, even previous ones.</param>
+    /// <param name="cleanAfterAccumulateInvoke">flag to clean list of items after <paramref name="action"/>. in case of true, values will always be accumulating in list, even previous ones.</param>
     public EventCooldownListOf(
         Action<List<T>> action,
         TimeSpan accumulateAfter,
@@ -38,7 +38,7 @@ public class EventCooldownListOf<T> : IEventCooldown<T>
     /// </summary>
     /// <param name="action">action to invoke after <paramref name="accumulateAfter"/></param>
     /// <param name="accumulateAfter">invoke <paramref name="action"/> after <paramref name="accumulateAfter"/> of silence</param>
-    /// <param name="cleanAfterAccumulateInvoke">flag to clean list of items after <paramref name="action"/>. in case of true, values will be always accumulating in list, even previous ones.</param>
+    /// <param name="cleanAfterAccumulateInvoke">flag to clean list of items after <paramref name="action"/>. in case of true, values will always be accumulating in list, even previous ones.</param>
     /// <param name="maxAccumulateAfter">(Optional) Maximum timespan after first event execute action.</param>
     public EventCooldownListOf(
         Action<List<T>> action,
@@ -48,12 +48,12 @@ public class EventCooldownListOf<T> : IEventCooldown<T>
     {
         _action = action;
         _cleanAfterAccumulateInvoke = cleanAfterAccumulateInvoke;
-        _items = new List<T>();
-        _eventCooldown = new EventCooldown(accumulateAfter, Accumulated, maxAccumulateAfter);
+        _items = [];
+        _eventCooldown = new(accumulateAfter, Accumulated, maxAccumulateAfter);
     }
 
     /// <inheritdoc />
-    public string LastStackTrace => _eventCooldown.LastStackTrace;
+    public string? LastStackTrace => _eventCooldown.LastStackTrace;
 
     /// <inheritdoc />
     public bool IsNow => _eventCooldown.IsNow;
@@ -142,11 +142,11 @@ public class EventCooldownListOf<T> : IEventCooldown<T>
         }
     }
 
-    public Func<List<T>, T, bool> AddPredicate { get; set; } = (list, item) => true;
+    public Func<List<T>, T, bool> AddPredicate { get; set; } = (_, _) => true;
 
-    private bool Add(T value)
+    private bool Add(T? value)
     {
-        if (value == null)
+        if (value is null)
             return false;
 
         lock (_itemsListPadlock)
@@ -173,7 +173,7 @@ public class EventCooldownListOf<T> : IEventCooldown<T>
             List<T> items;
             lock (_itemsListPadlock)
             {
-                items = new List<T>(_items);
+                items = new(_items);
                 if (_cleanAfterAccumulateInvoke)
                     _items.Clear();
             }

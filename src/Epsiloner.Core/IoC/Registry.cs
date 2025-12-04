@@ -1,4 +1,4 @@
-﻿using Epsiloner.Helpers;
+﻿using Epsiloner.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Epsiloner.IoC;
 public abstract class Registry<T>
 {
     /// <summary>
-    /// Performs types registration in specified <paramref name="container"/>
+    /// Perform types registration in specified <paramref name="container"/>
     /// </summary>
     /// <param name="container">IoC container where types will be registered.</param>
     public abstract void Register(T container);
@@ -26,7 +26,7 @@ public abstract class Registry<T>
         var t = typeof(Registry<T>);
         var asm = t.Assembly;
         var assemblies = asm.GetDependentAssemblies();
-            
+
         var rv = assemblies.SelectMany(x => x.FindDerivedTypes(t)).ToList();
         return rv;
     }

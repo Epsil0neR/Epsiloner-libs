@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Epsiloner.Collections;
@@ -21,11 +20,11 @@ public class ReadOnlyObservableCollection<T>
         _observableCollectionWrap = list;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="System.Collections.ObjectModel.ObservableCollection{T}.CollectionChanged"/>
     public new event NotifyCollectionChangedEventHandler CollectionChanged
     {
-        add { base.CollectionChanged += value; }
-        remove { base.CollectionChanged -= value; }
+        add => base.CollectionChanged += value;
+        remove => base.CollectionChanged -= value;
     }
 
     #region Public methods
@@ -56,8 +55,8 @@ public class ReadOnlyObservableCollection<T>
         return action(this);
     }
 
-    protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        OnPropertyChanged(new(propertyName));
     }
 }

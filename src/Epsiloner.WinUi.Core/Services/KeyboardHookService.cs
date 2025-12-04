@@ -18,8 +18,8 @@ public sealed class KeyboardHookService : IDisposable
     private IntPtr _hookId;
     private readonly user32dll.LowLevelKeyboardProc _hookHandler;
 
-    public event EventHandler<KeyboardHookServiceEventArgs> KeyDown;
-    public event EventHandler<KeyboardHookServiceEventArgs> KeyUp;
+    public event EventHandler<KeyboardHookServiceEventArgs>? KeyDown;
+    public event EventHandler<KeyboardHookServiceEventArgs>? KeyUp;
 
     public KeyboardHookService()
     {

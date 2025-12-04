@@ -1,4 +1,4 @@
-﻿using Epsiloner.Helpers;
+﻿using Epsiloner.Extensions;
 using System;
 
 namespace Epsiloner.Attributes;
@@ -10,7 +10,7 @@ namespace Epsiloner.Attributes;
 [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
 public class InitializeOnLoadAttribute : Attribute
 {
-    private static readonly Type AttrType = typeof(InitializeOnLoadAttribute);
+    public static readonly Type AttrType = typeof(InitializeOnLoadAttribute);
 
     /// <inheritdoc />
     public InitializeOnLoadAttribute(Type type)

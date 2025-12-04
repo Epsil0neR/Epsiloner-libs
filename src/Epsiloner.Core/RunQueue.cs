@@ -12,7 +12,7 @@ public class RunQueue : DisposableObject
 {
     private readonly int _queueMax;
 
-    private readonly object _lock = new();
+    private readonly Lock _lock = new();
     private readonly SemaphoreSlim _semaphore;
     private readonly CancellationTokenSource _tokenSource;
     private readonly CancellationToken _token;
@@ -33,8 +33,8 @@ public class RunQueue : DisposableObject
             throw new ArgumentException("Queue limit must be >= 1.");
 
         _queueMax = queueLimit + 1;
-        _semaphore = new SemaphoreSlim(_queueMax, _queueMax);
-        _tokenSource = new CancellationTokenSource();
+        _semaphore = new(_queueMax, _queueMax);
+        _tokenSource = new();
         _token = _tokenSource.Token;
 
         Action = action ?? throw new ArgumentNullException(nameof(action));
@@ -49,7 +49,7 @@ public class RunQueue : DisposableObject
     }
 
     /// <summary>
-    /// Runs if queue is empty or adds to queue if queue is not full. Otherwise nothing happens.
+    /// Runs if queue is empty or adds to queue if queue is not full. Otherwise, nothing happens.
     /// </summary>
     public async Task RunAsync()
     {

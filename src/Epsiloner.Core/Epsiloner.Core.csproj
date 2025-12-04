@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net10.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
 		<Authors>Veniamin Lytkin @ Epsil0neR</Authors>
 		<Copyright>Copyright © Epsil0neR 2018</Copyright>
 		<Company>https://github.com/Epsil0neR/</Company>

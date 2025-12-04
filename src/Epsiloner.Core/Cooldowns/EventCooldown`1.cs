@@ -13,22 +13,22 @@ namespace Epsiloner.Cooldowns;
 public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
 {
     private readonly TimeSpan _accumulateAfter;
-    private readonly Action<T> _action;
+    private readonly Action<T?> _action;
     private readonly TimeSpan? _maxAccumulateAfter;
     private readonly Lock _padlock = new();
     private bool _timerIsDisposed;
     private bool _timerMaxElapsing;
 
-    private T _value;
-    private Timer _timer;
-    private Timer _timerMax;
+    private T? _value;
+    private Timer? _timer;
+    private Timer? _timerMax;
 
     /// <summary>
     /// Creates event cooldown.  
     /// </summary>
     /// <param name="accumulateAfter">Timespan after last event execute action.</param>
     /// <param name="action">Action to invoke.</param>
-    public EventCooldown(TimeSpan accumulateAfter, Action<T> action)
+    public EventCooldown(TimeSpan accumulateAfter, Action<T?> action)
         : this(accumulateAfter, action, null)
     { }
 
@@ -38,7 +38,7 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
     /// <param name="accumulateAfter">Timespan after last event execute action.</param>
     /// <param name="action">Action to invoke.</param>
     /// <param name="maxAccumulateAfter">(Optional) Maximum timespan after first event execute action.</param>
-    public EventCooldown(TimeSpan accumulateAfter, Action<T> action, TimeSpan? maxAccumulateAfter = null)
+    public EventCooldown(TimeSpan accumulateAfter, Action<T?> action, TimeSpan? maxAccumulateAfter = null)
     {
         _accumulateAfter = accumulateAfter;
         _action = action;
@@ -49,7 +49,7 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
     }
 
     /// <inheritdoc />
-    public string LastStackTrace { get; private set; }
+    public string? LastStackTrace { get; private set; }
 
     /// <inheritdoc />
     public bool IsNow { get; private set; }
@@ -66,7 +66,7 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
 
         lock (_padlock)
         {
-            if (_timer == null)
+            if (_timer is null)
                 return;
 
             _timer.Stop();
@@ -83,7 +83,7 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
 
         lock (_padlock)
         {
-            if (_timer == null)
+            if (_timer is null)
                 return;
 
             _timer.Stop();
@@ -123,7 +123,7 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
 
         lock (_padlock)
         {
-            if (_timer == null)
+            if (_timer is null)
                 return;
 
             if (KeepLastStackTrace) 
@@ -194,7 +194,7 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
         return timer;
     }
 
-    private Timer NewMaxTimer()
+    private Timer? NewMaxTimer()
     {
         if (!_maxAccumulateAfter.HasValue)
             return null;
@@ -209,18 +209,18 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
         return timer;
     }
 
-    private void OnMaxElapsed(object sender, ElapsedEventArgs e)
+    private void OnMaxElapsed(object? sender, ElapsedEventArgs e)
     {
         Cancel();
         InvokeAction();
     }
 
-    private void TimerDisposed(object sender, EventArgs e)
+    private void TimerDisposed(object? sender, EventArgs e)
     {
         _timerIsDisposed = true;
     }
 
-    private void OnElapsed(object sender, ElapsedEventArgs e)
+    private void OnElapsed(object? sender, ElapsedEventArgs e)
     {
         InvokeAction();
     }
@@ -240,21 +240,15 @@ public class EventCooldown<T> : DisposableObject, IEventCooldown<T>
     {
         lock (_padlock)
         {
-            if (_timer != null)
-            {
-                _timer.Close();
-                _timer.Elapsed -= OnElapsed;
-                _timer.Disposed -= TimerDisposed;
-                _timer = null;
-            }
+            _timer?.Close();
+            _timer?.Elapsed -= OnElapsed;
+            _timer?.Disposed -= TimerDisposed;
+            _timer = null;
 
-            if (_timerMax != null)
-            {
-                _timerMax.Close();
-                _timerMax.Elapsed -= OnMaxElapsed;
-                _timerMax.Disposed -= TimerDisposed;
-                _timerMax = null;
-            }
+            _timerMax?.Close();
+            _timerMax?.Elapsed -= OnMaxElapsed;
+            _timerMax?.Disposed -= TimerDisposed;
+            _timerMax = null;
         }
     }
 }

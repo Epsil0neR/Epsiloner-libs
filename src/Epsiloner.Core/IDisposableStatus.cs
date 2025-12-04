@@ -11,7 +11,7 @@ public interface IDisposableStatus
     bool IsDisposed { get; }
 
     /// <summary>
-    /// If is currently disposing.
+    /// If it is currently disposing.
     /// </summary>
     bool IsDisposing { get; }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Epsiloner.WinUi.Gestures;
@@ -84,6 +85,10 @@ public class HotkeysService : IHotkeysService
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name), "Name cannot be empty or whitespace.");
+
+#if DEBUG
+        Debug.WriteLine($"{nameof(HotkeysService)}.{nameof(Change)} handler for {name}");
+#endif
 
         if (handler is null)
             _handlers.Remove(name);

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Epsiloner.Helpers;
+using Epsiloner.Extensions;
 using Windows.System;
 
 namespace Epsiloner.WinUi.Gestures;

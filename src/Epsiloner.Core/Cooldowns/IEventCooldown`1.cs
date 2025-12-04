@@ -1,6 +1,4 @@
-﻿using System.Timers;
-
-namespace Epsiloner.Cooldowns;
+﻿namespace Epsiloner.Cooldowns;
 
 public interface IEventCooldown<in T>
 {
@@ -22,7 +20,7 @@ public interface IEventCooldown<in T>
 
     /// <summary>
     /// Puts event in cooldown. 
-    /// In case no more events comes then OnElapsed will be called.
+    /// In case no more events comes than OnElapsed will be called.
     /// </summary>
     void Accumulate(T value);
 
@@ -35,7 +33,7 @@ public interface IEventCooldown<in T>
     /// <summary>
     /// Provides stack trace of last <see cref="Accumulate"/> and <see cref="Now()"/> and <see cref="Now(T)"/>.
     /// </summary>
-    string LastStackTrace { get; }
+    string? LastStackTrace { get; }
 
     /// <summary>
     /// Was last cooldown called by now?

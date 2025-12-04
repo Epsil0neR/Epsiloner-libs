@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -16,6 +15,7 @@ namespace Epsiloner.Collections;
 public class ObservableCollection<T>
     : System.Collections.ObjectModel.ObservableCollection<T>
 {
+    private const string AllItemsPropertyName = "Item[]";
     private readonly List<ItemHandlerDelegate<T>> _handlers = [];
     private readonly Lock _smartReplaceLock = new();
 
@@ -136,7 +136,7 @@ public class ObservableCollection<T>
     /// Recommended for usage with UI and other parts that does not handle correctly when <see cref="NotifyCollectionChangedEventArgs.Action"/> is set to <see cref="NotifyCollectionChangedAction.Reset"/>.
     /// </summary>
     /// <param name="items"></param>
-    public void ReplaceRangeSmart(IEnumerable<T> items)
+    public void ReplaceRangeSmart(IEnumerable<T>? items)
     {
         lock (_smartReplaceLock)
         {
@@ -154,10 +154,16 @@ public class ObservableCollection<T>
                 var itm = list.ElementAt(i);
                 var ind = IndexOf(itm);
                 var indNew = i - skippedItems;
-                if (ind >= 0 && ind != indNew)
-                    Move(ind, indNew);
-                else if (ind < 0) // Item not found in source.
-                    skippedItems++;
+                switch (ind)
+                {
+                    case >= 0 when ind != indNew:
+                        Move(ind, indNew);
+                        break;
+                    // Item not found in source.
+                    case < 0:
+                        skippedItems++;
+                        break;
+                }
             }
 
             foreach (var itm in added)
@@ -183,7 +189,7 @@ public class ObservableCollection<T>
     {
         ArgumentOutOfRangeException.ThrowIfNegative(maxTries);
 
-        List<T> rv = null;
+        List<T>? rv = null;
         var tryIndex = 0;
         do
         {
@@ -197,7 +203,7 @@ public class ObservableCollection<T>
             {
                 // Throw exception only if tried maximum allowed times and still no result.
                 if (maxTries > 0 && tryIndex >= maxTries)
-                    throw new Exception("Reached max tries.", e);
+                    throw new("Reached max tries.", e);
 
                 // Suggestion from Nerijus to wait 1ms.
                 Thread.Sleep(1);
@@ -214,21 +220,20 @@ public class ObservableCollection<T>
     protected virtual void AddRangeItems(IEnumerable<T> items)
     {
         CheckReentrancy();
-        var itms = items.ToArray();
-
+        var array = items.ToArray();
         var startIndex = Items.Count;
-        for (var i = 0; i < itms.Length; i++)
+        for (var i = 0; i < array.Length; i++)
         {
-            Items.Insert(i + startIndex, itms[i]);
+            Items.Insert(i + startIndex, array[i]);
         }
 
-        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, itms, startIndex));
+        OnCollectionChanged(new(NotifyCollectionChangedAction.Add, array, startIndex));
         RaisePropertyChanged(nameof(Count));
-        RaisePropertyChanged("Item[]");
+        RaisePropertyChanged(AllItemsPropertyName);
 
-        for (var index = 0; index < itms.Length; index++)
+        for (var index = 0; index < array.Length; index++)
         {
-            var itm = itms[index];
+            var itm = array[index];
             RunAllHandlersForItem(true, itm, index);
         }
     }
@@ -236,19 +241,19 @@ public class ObservableCollection<T>
     protected virtual void ReplaceRangeItems(IEnumerable<T> items)
     {
         CheckReentrancy();
-        var itms = items.ToArray();
+        var array = items.ToArray();
         var old = Items.ToArray();
 
         Items.Clear();
 
-        for (var i = 0; i < itms.Length; i++)
+        for (var i = 0; i < array.Length; i++)
         {
-            Items.Insert(i, itms[i]);
-        };
+            Items.Insert(i, array[i]);
+        }
 
-        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        OnCollectionChanged(new(NotifyCollectionChangedAction.Reset));
         RaisePropertyChanged(nameof(Count));
-        RaisePropertyChanged("Item[]");
+        RaisePropertyChanged(AllItemsPropertyName);
 
         for (var index = 0; index < old.Length; index++)
         {
@@ -256,9 +261,9 @@ public class ObservableCollection<T>
             RunAllHandlersForItem(false, item, index);
         }
 
-        for (var index = 0; index < itms.Length; index++)
+        for (var index = 0; index < array.Length; index++)
         {
-            var itm = itms[index];
+            var itm = array[index];
             RunAllHandlersForItem(true, itm, index);
         }
     }
@@ -266,13 +271,12 @@ public class ObservableCollection<T>
     protected virtual void RemoveRangeItems(IEnumerable<T> items)
     {
         CheckReentrancy();
-        var itms = items.ToArray();
+        var array = items.ToArray();
+        var removed = array.Where(x => Items.Remove(x)).ToList();
 
-        var removed = itms.Where(x => Items.Remove(x)).ToList();
-
-        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        OnCollectionChanged(new(NotifyCollectionChangedAction.Reset));
         RaisePropertyChanged(nameof(Count));
-        RaisePropertyChanged("Item[]");
+        RaisePropertyChanged(AllItemsPropertyName);
 
         for (var index = 0; index < removed.Count; index++)
         {
@@ -318,24 +322,23 @@ public class ObservableCollection<T>
         var old = Items.ElementAtOrDefault(index);
 
         base.SetItem(index, item);
-        //!EqualityComparer<T>.Default.Equals(item, old)) 
-        if (!ReferenceEquals(item, old))
-        {
-            if (hasItem)
-                RunAllHandlersForItem(false, old, index);
-            RunAllHandlersForItem(true, item, index);
-        }
+        if (ReferenceEquals(item, old)) 
+            return;
+
+        if (hasItem)
+            RunAllHandlersForItem(false, old, index);
+        RunAllHandlersForItem(true, item, index);
     }
     #endregion
 
     #region Private methods
 
-    protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        OnPropertyChanged(new(propertyName));
     }
 
-    protected virtual void RunAllHandlersForItem(bool inserted, T item, int index)
+    protected virtual void RunAllHandlersForItem(bool inserted, T? item, int index)
     {
         foreach (var handler in _handlers.ToArray())
         {
@@ -343,9 +346,9 @@ public class ObservableCollection<T>
         }
     }
 
-    protected virtual void RunHandlerForItem(ItemHandlerDelegate<T> handler, bool inserted, T item, int index)
+    protected virtual void RunHandlerForItem(ItemHandlerDelegate<T> handler, bool inserted, T? item, int index)
     {
-        handler?.Invoke(inserted, item, index);
+        handler.Invoke(inserted, item, index);
     }
 
     #endregion
