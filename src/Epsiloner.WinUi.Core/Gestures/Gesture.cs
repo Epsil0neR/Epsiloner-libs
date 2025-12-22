@@ -104,13 +104,7 @@ public class Gesture
             return false;
 
         var inp = modifiers.GetFlags();
-        foreach (var m in inp)
-        {
-            if (!Modifiers.HasFlag(m))
-                return false;
-        }
-
-        return true;
+        return inp.All(m => Modifiers.HasFlag(m));
     }
 
     /// <summary>
@@ -139,7 +133,7 @@ public class Gesture
     /// </summary>
     /// <param name="gesture">Gesture to check.</param>
     /// <returns></returns>
-    public static bool IsValid(Gesture gesture) => gesture?.IsValid() ?? false;
+    public static bool IsValid(Gesture? gesture) => gesture?.IsValid() ?? false;
 
     /// <inheritdoc />
     public override string ToString() =>

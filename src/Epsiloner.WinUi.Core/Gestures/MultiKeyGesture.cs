@@ -37,7 +37,7 @@ public sealed class MultiKeyGesture
     }
 
     /// <summary>
-    /// Initializes <see cref="MultiKeyGesture"/> with custom maximum delay between Matches invokinig to reset gesture to initial state.
+    /// Initializes <see cref="MultiKeyGesture"/> with custom maximum delay between Matches invoking to reset gesture to initial state.
     /// </summary>
     /// <param name="gestures"></param>
     /// <param name="maxDelay"></param>
@@ -59,7 +59,7 @@ public sealed class MultiKeyGesture
             return MultiKeyGestureMatch.NoMatch;
 
         var now = DateTime.UtcNow;
-        if (_enumerator == null || (now - _lastKeyPress) > MaxDelay)
+        if (_enumerator == null || now - _lastKeyPress > MaxDelay)
         {
             _enumerator?.Dispose();
             _enumerator = Gestures.GetEnumerator();
